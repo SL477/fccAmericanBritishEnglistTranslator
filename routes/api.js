@@ -31,7 +31,12 @@ module.exports = function (app) {
             res.json({ error: 'Invalid value for locale field' });
           }
           else {
-
+            let t = translator.translate(req.body.text, req.body.locale);
+            let ret = {
+              text: req.body.text,
+              translation: req.body.text === t.translated? 'Everything looks good to me!' : t.highlightedTranslated
+            };
+            res.json(ret);
           }
         }
       }
