@@ -34,6 +34,16 @@ suite('Functional Tests', () => {
       const locale = 'russian-to-spanish';
       const error = { error: 'Invalid value for locale field' };
       
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'locale': locale,
+        'text': text
+      })
+      .end((err, res) => {
+        assert.equal(res.body.error, error.error, 'Post with text and invalid locale');
+        done();
+      });
       //done();
     });
 
@@ -41,6 +51,15 @@ suite('Functional Tests', () => {
       const locale = "american-to-british";
       const error = { error: 'Required field(s) missing' }
       
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'locale': locale
+      })
+      .end((err, res) => {
+        assert.equal(res.body.error, error.error, 'Post with missing text field');
+        done();
+      });
       //done();
     });
     
@@ -48,7 +67,15 @@ suite('Functional Tests', () => {
       const text = "freeCodeCamp rocks!";
       const error = { error: 'Required field(s) missing' }
 
-      //done();
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'text': text
+      })
+      .end((err, res) => {
+        assert.equal(res.body.error, error.error, 'Post with missing locale field');
+        done();
+      });
     });
     
     test('POST with missing text', done => {
@@ -56,7 +83,16 @@ suite('Functional Tests', () => {
       const locale = "american-to-british";
       const error = { error: 'No text to translate' }
 
-      //done();
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'text': text,
+        'locale': locale
+      })
+      .end((err, res) => {
+        assert.equal(res.body.error, error.error, 'Post with missing text');
+        done();
+      });
     });
 
     test('POST with text that needs no translation', done => {
