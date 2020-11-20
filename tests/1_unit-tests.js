@@ -187,7 +187,7 @@ suite('Unit Tests', () => {
         const input = 'Mangoes are my favorite fruit.';
         const output = 'Mangoes are my <span class="highlight">favourite</span> fruit.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).translated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
         done();
       });
 
@@ -195,7 +195,7 @@ suite('Unit Tests', () => {
         const input = 'I ate yogurt for breakfast.';
         const output = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).translated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
         done();
       });
     });
@@ -205,7 +205,7 @@ suite('Unit Tests', () => {
         const input = 'We watched the footie match for a while.';
         const output = 'We watched the <span class="highlight">soccer</span> match for a while.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).translated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
         done();
       });
 
@@ -213,7 +213,7 @@ suite('Unit Tests', () => {
         const input = 'Paracetamol takes up to an hour to work.';
         const output = '<span class="highlight">Tylenol</span> takes up to an hour to work.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).translated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
         done();
       });
     });
