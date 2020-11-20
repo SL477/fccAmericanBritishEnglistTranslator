@@ -27,6 +27,16 @@ suite('Functional Tests', () => {
       };
       
       //done();
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'locale': locale,
+        'text': text
+      })
+      .end((err,res) => {
+        assert.equal(res.body.translation, output.translation, 'translation ' + res.body.translation);
+        done();
+      });
     });
 
     test('POST with text and invalid locale', done => {
@@ -103,7 +113,16 @@ suite('Functional Tests', () => {
         translation: "Everything looks good to me!"
         }
 
-      //done();
+      chai.request(server)
+      .post('/api/translate')
+      .send({
+        'text': text,
+        'locale': locale
+      })
+      .end((err,res) => {
+        assert.equal(res.body.translation, output.translation, 'translation should be ' + res.body.translation);
+        done();
+      });
     });
 
   });  
