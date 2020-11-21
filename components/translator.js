@@ -193,12 +193,12 @@ class Translator {
 
             let timelooker2 = /(\b\d{1}\.\d{2})/g;
             if (timelooker2.test(ret)) {
-                let tlIndex = timelooker.exec(ret);
-                let i = timelooker.exec(ret)[1];
+                let tlIndex = timelooker2.exec(ret);
+                let i = timelooker2.exec(ret)[1];
                 console.log(i);
 
-                let tlIndex2 = timelooker.exec(highLighted);
-                let i2 = timelooker.exec(highLighted)[1];
+                let tlIndex2 = timelooker2.exec(highLighted);
+                let i2 = timelooker2.exec(highLighted)[1];
                 console.log(i2);
                 //Not entirely sure how or why this works, but  I found it through experimenting in the console
 
