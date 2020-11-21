@@ -30,7 +30,7 @@ class Translator {
             Object.keys(britishOnly).forEach((key) => {
                 let replace = new RegExp('\\b' + key + '\\b', "gi");
                 if (replace.test(ret)) {
-                    console.log(key);
+                    //console.log(key);
                     if (key == 'chippy') {
                         hasChippy = true;
                     }
@@ -55,10 +55,13 @@ class Translator {
             Object.keys(americanToBritishTitles).forEach((key) => {
                 let s = this.capitalise(americanToBritishTitles[key]);
                 let r = this.capitalise(key);
-                if (ret.includes(s)) {
+                /*if (ret.includes(s)) {
                     ret = ret.replace(s, r);
                     highLighted = highLighted.replace(s, '<span class="highlight">' + r + '</span>');
-                }
+                }*/
+                let replace = new RegExp('\\b' + s + '\\b','gi');
+                ret = ret.replace(replace, r);
+                highLighted = highLighted.replace(replace, '<span class="highlight">' + r + '</span>');
             });
 
             //Time
@@ -91,12 +94,12 @@ class Translator {
 
             let timelooker2 = /(\b\d{1}\.\d{2})/g;
             if (timelooker2.test(ret)) {
-                let tlIndex = timelooker.exec(ret);
-                let i = timelooker.exec(ret)[1];
+                let tlIndex = timelooker2.exec(ret);
+                let i = timelooker2.exec(ret)[1];
                 console.log(i);
 
-                let tlIndex2 = timelooker.exec(highLighted);
-                let i2 = timelooker.exec(highLighted)[1];
+                let tlIndex2 = timelooker2.exec(highLighted);
+                let i2 = timelooker2.exec(highLighted)[1];
                 console.log(i2);
                 //Not entirely sure how or why this works, but  I found it through experimenting in the console
 
@@ -107,11 +110,11 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 2) + ':' + ret.substring(t1 + 3);
+                    ret = ret.substring(0, t1 + 1) + ':' + ret.substring(t1 + 2);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 2) + ':' + highLighted.substring(t2 + 3);
+                    highLighted = highLighted.substring(0, t2 + 1) + ':' + highLighted.substring(t2 + 2);
                 }
             }
         }

@@ -19,11 +19,11 @@ suite('Functional Tests', () => {
 
   suite('"POST" to /api/translate', () => {
     test('POST with text and locale fields populated', done => { 
-      const text = "'Mangoes are my favorite fruit.'";
+      const text = "Mangoes are my favorite fruit.";
       const locale = 'american-to-british';
       const output = {
         text: "Mangoes are my favorite fruit", 
-        translation: "Mangoes are my <span class='highlight'>favourite</span> fruit."
+        translation: 'Mangoes are my <span class="highlight">favourite</span> fruit.'
       };
       
       //done();

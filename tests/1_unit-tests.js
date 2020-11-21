@@ -187,7 +187,7 @@ suite('Unit Tests', () => {
         const input = 'Mangoes are my favorite fruit.';
         const output = 'Mangoes are my <span class="highlight">favourite</span> fruit.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[1]).highlightedTranslated, output, 'should translate');
         done();
       });
 
@@ -195,7 +195,7 @@ suite('Unit Tests', () => {
         const input = 'I ate yogurt for breakfast.';
         const output = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
 
-        assert.equal(translator.translate(input, translator.allowedLocales()[0]).highlightedTranslated, output, 'should translate');
+        assert.equal(translator.translate(input, translator.allowedLocales()[1]).highlightedTranslated, output, 'should translate');
         done();
       });
     });
