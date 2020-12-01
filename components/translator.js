@@ -191,7 +191,7 @@ class Translator {
                 }
             }
 
-            let timelooker2 = /(\b\d{1}\.\d{2})/g;
+            let timelooker2 = /(\b\d{1}\:\d{2})/g;
             if (timelooker2.test(ret)) {
                 let tlIndex = timelooker2.exec(ret);
                 let i = timelooker2.exec(ret)[1];
@@ -209,11 +209,11 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 2) + ':' + ret.substring(t1 + 3);
+                    ret = ret.substring(0, t1 + 1) + '.' + ret.substring(t1 + 2);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 2) + ':' + highLighted.substring(t2 + 3);
+                    highLighted = highLighted.substring(0, t2 + 1) + '.' + highLighted.substring(t2 + 2);
                 }
             }
         }
