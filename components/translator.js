@@ -88,7 +88,8 @@ class Translator {
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 2) + ':' + highLighted.substring(t2 + 3);
+                    //highLighted = highLighted.substring(0, t2 + 2) + ':' + highLighted.substring(t2 + 3);
+                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,2) + ':' + i2.substring(3) + '</span>' + highLighted.substring(t2 + 5);
                 }
             }
 
@@ -114,7 +115,8 @@ class Translator {
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 1) + ':' + highLighted.substring(t2 + 2);
+                    //highLighted = highLighted.substring(0, t2 + 1) + ':' + highLighted.substring(t2 + 2);
+                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,1) + ':' + i2.substring(2) + '</span>' + highLighted.substring(t2 + 5);
                 }
             }
         }
@@ -169,11 +171,11 @@ class Translator {
             if (timelooker.test(ret)) {
                 let tlIndex = timelooker.exec(ret);
                 let i = timelooker.exec(ret)[1];
-                console.log(i);
+                //console.log(i);
 
                 let tlIndex2 = timelooker.exec(highLighted);
                 let i2 = timelooker.exec(highLighted)[1];
-                console.log(i2);
+                //console.log(i2);
                 //Not entirely sure how or why this works, but  I found it through experimenting in the console
 
                 //console.log(timelooker.exec(ret)[1]);
@@ -187,7 +189,8 @@ class Translator {
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 2) + '.' + highLighted.substring(t2 + 3);
+                    //highLighted = highLighted.substring(0, t2 + 2) + '.' + highLighted.substring(t2 + 3);
+                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,2) + '.' + i2.substring(3) + '</span>' + highLighted.substring(t2 + 5);
                 }
             }
 
@@ -195,11 +198,11 @@ class Translator {
             if (timelooker2.test(ret)) {
                 let tlIndex = timelooker2.exec(ret);
                 let i = timelooker2.exec(ret)[1];
-                console.log(i);
+                //console.log(i);
 
                 let tlIndex2 = timelooker2.exec(highLighted);
                 let i2 = timelooker2.exec(highLighted)[1];
-                console.log(i2);
+                //console.log(i2);
                 //Not entirely sure how or why this works, but  I found it through experimenting in the console
 
                 //console.log(timelooker.exec(ret)[1]);
@@ -213,7 +216,8 @@ class Translator {
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
-                    highLighted = highLighted.substring(0, t2 + 1) + '.' + highLighted.substring(t2 + 2);
+                    //highLighted = highLighted.substring(0, t2 + 1) + '.' + highLighted.substring(t2 + 2);
+                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,1) + '.' + i2.substring(2) + '</span>' + highLighted.substring(t2 + 5);
                 }
             }
         }
