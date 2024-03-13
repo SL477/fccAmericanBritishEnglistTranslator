@@ -1,7 +1,7 @@
-const americanOnly = require('./american-only.js');
-const americanToBritishSpelling = require('./american-to-british-spelling.js');
-const americanToBritishTitles = require("./american-to-british-titles.js")
-const britishOnly = require('./british-only.js')
+import americanOnly from './american-only.js';
+import americanToBritishSpelling from './american-to-british-spelling.js';
+import americanToBritishTitles from './american-to-british-titles.js';
+import britishOnly from './british-only.js';
 
 class Translator {
     allowedLocales() {
@@ -16,7 +16,7 @@ class Translator {
     }
 
     capitalise(string) {
-        return string.substring(0,1).toUpperCase() + string.substring(1);
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
     }
 
     translate(input, locale) {
@@ -28,7 +28,7 @@ class Translator {
             //british to american
             let hasChippy = false;
             Object.keys(britishOnly).forEach((key) => {
-                let replace = new RegExp('\\b' + key + '\\b', "gi");
+                let replace = new RegExp('\\b' + key + '\\b', 'gi');
                 if (replace.test(ret)) {
                     //console.log(key);
                     if (key == 'chippy') {
@@ -36,7 +36,12 @@ class Translator {
                     }
                     if (!(hasChippy && key === 'chip shop')) {
                         ret = ret.replace(replace, britishOnly[key]);
-                        highLighted = highLighted.replace(replace, '<span class="highlight">' + britishOnly[key] + '</span>');
+                        highLighted = highLighted.replace(
+                            replace,
+                            '<span class="highlight">' +
+                                britishOnly[key] +
+                                '</span>'
+                        );
                     }
                 }
 
@@ -46,9 +51,15 @@ class Translator {
 
             //Opposite of US
             Object.keys(americanToBritishSpelling).forEach((key) => {
-                let replace = new RegExp('\\b' + americanToBritishSpelling[key] + '\\b', "gi");
+                let replace = new RegExp(
+                    '\\b' + americanToBritishSpelling[key] + '\\b',
+                    'gi'
+                );
                 ret = ret.replace(replace, key);
-                highLighted = highLighted.replace(replace, '<span class="highlight">' + key + '</span>');
+                highLighted = highLighted.replace(
+                    replace,
+                    '<span class="highlight">' + key + '</span>'
+                );
             });
 
             //need to sort out titles
@@ -59,19 +70,24 @@ class Translator {
                     ret = ret.replace(s, r);
                     highLighted = highLighted.replace(s, '<span class="highlight">' + r + '</span>');
                 }*/
-                let replace = new RegExp('\\b' + s + '\\b','gi');
+                let replace = new RegExp('\\b' + s + '\\b', 'gi');
                 ret = ret.replace(replace, r);
-                highLighted = highLighted.replace(replace, '<span class="highlight">' + r + '</span>');
+                highLighted = highLighted.replace(
+                    replace,
+                    '<span class="highlight">' + r + '</span>'
+                );
             });
 
             //Time
             //look for 00.00 replace with 00:00
             let timelooker = /(\b\d{2}\.\d{2})/g;
             if (timelooker.test(ret)) {
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex = timelooker.exec(ret);
                 let i = timelooker.exec(ret)[1];
                 console.log(i);
 
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex2 = timelooker.exec(highLighted);
                 let i2 = timelooker.exec(highLighted)[1];
                 console.log(i2);
@@ -84,21 +100,31 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 2) + ':' + ret.substring(t1 + 3);
+                    ret =
+                        ret.substring(0, t1 + 2) + ':' + ret.substring(t1 + 3);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
                     //highLighted = highLighted.substring(0, t2 + 2) + ':' + highLighted.substring(t2 + 3);
-                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,2) + ':' + i2.substring(3) + '</span>' + highLighted.substring(t2 + 5);
+                    highLighted =
+                        highLighted.substring(0, t2) +
+                        '<span class="highlight">' +
+                        i2.substring(0, 2) +
+                        ':' +
+                        i2.substring(3) +
+                        '</span>' +
+                        highLighted.substring(t2 + 5);
                 }
             }
 
             let timelooker2 = /(\b\d{1}\.\d{2})/g;
             if (timelooker2.test(ret)) {
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex = timelooker2.exec(ret);
                 let i = timelooker2.exec(ret)[1];
                 console.log(i);
 
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex2 = timelooker2.exec(highLighted);
                 let i2 = timelooker2.exec(highLighted)[1];
                 console.log(i2);
@@ -111,16 +137,23 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 1) + ':' + ret.substring(t1 + 2);
+                    ret =
+                        ret.substring(0, t1 + 1) + ':' + ret.substring(t1 + 2);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
                     //highLighted = highLighted.substring(0, t2 + 1) + ':' + highLighted.substring(t2 + 2);
-                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,1) + ':' + i2.substring(2) + '</span>' + highLighted.substring(t2 + 5);
+                    highLighted =
+                        highLighted.substring(0, t2) +
+                        '<span class="highlight">' +
+                        i2.substring(0, 1) +
+                        ':' +
+                        i2.substring(2) +
+                        '</span>' +
+                        highLighted.substring(t2 + 5);
                 }
             }
-        }
-        else {
+        } else {
             //american to british
             /*splitString.forEach(element => {
                 if (americanOnly[element]) {
@@ -141,15 +174,23 @@ class Translator {
                 }
             });*/
             Object.keys(americanOnly).forEach((key) => {
-                let replace = new RegExp('\\b' + key + '\\b', "gi");
+                let replace = new RegExp('\\b' + key + '\\b', 'gi');
                 ret = ret.replace(replace, americanOnly[key]);
-                highLighted = highLighted.replace(replace, '<span class="highlight">' + americanOnly[key] + '</span>');
+                highLighted = highLighted.replace(
+                    replace,
+                    '<span class="highlight">' + americanOnly[key] + '</span>'
+                );
             });
 
             Object.keys(americanToBritishSpelling).forEach((key) => {
-                let replace = new RegExp('\\b' + key + '\\b', "gi");
+                let replace = new RegExp('\\b' + key + '\\b', 'gi');
                 ret = ret.replace(replace, americanToBritishSpelling[key]);
-                highLighted = highLighted.replace(replace, '<span class="highlight">' + americanToBritishSpelling[key] + '</span>');
+                highLighted = highLighted.replace(
+                    replace,
+                    '<span class="highlight">' +
+                        americanToBritishSpelling[key] +
+                        '</span>'
+                );
             });
 
             //need to get the titles to work, done
@@ -161,7 +202,10 @@ class Translator {
                 let r = this.capitalise(americanToBritishTitles[key]);
                 while (ret.includes(s)) {
                     ret = ret.replace(s, r);
-                    highLighted = highLighted.replace(s, '<span class="highlight">' + r + '</span>');
+                    highLighted = highLighted.replace(
+                        s,
+                        '<span class="highlight">' + r + '</span>'
+                    );
                 }
             });
 
@@ -169,10 +213,12 @@ class Translator {
             //look for 00:00 replace with 00.00
             let timelooker = /(\b\d{2}:\d{2})/g;
             if (timelooker.test(ret)) {
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex = timelooker.exec(ret);
                 let i = timelooker.exec(ret)[1];
                 //console.log(i);
 
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex2 = timelooker.exec(highLighted);
                 let i2 = timelooker.exec(highLighted)[1];
                 //console.log(i2);
@@ -185,21 +231,32 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 2) + '.' + ret.substring(t1 + 3);
+                    ret =
+                        ret.substring(0, t1 + 2) + '.' + ret.substring(t1 + 3);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
                     //highLighted = highLighted.substring(0, t2 + 2) + '.' + highLighted.substring(t2 + 3);
-                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,2) + '.' + i2.substring(3) + '</span>' + highLighted.substring(t2 + 5);
+                    highLighted =
+                        highLighted.substring(0, t2) +
+                        '<span class="highlight">' +
+                        i2.substring(0, 2) +
+                        '.' +
+                        i2.substring(3) +
+                        '</span>' +
+                        highLighted.substring(t2 + 5);
                 }
             }
 
+            // eslint-disable-next-line no-useless-escape
             let timelooker2 = /(\b\d{1}\:\d{2})/g;
             if (timelooker2.test(ret)) {
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex = timelooker2.exec(ret);
                 let i = timelooker2.exec(ret)[1];
                 //console.log(i);
 
+                // eslint-disable-next-line no-unused-vars
                 let tlIndex2 = timelooker2.exec(highLighted);
                 let i2 = timelooker2.exec(highLighted)[1];
                 //console.log(i2);
@@ -212,20 +269,28 @@ class Translator {
                 highLighted = highLighted.substring(0, tlIndex2.index + 2) + '.' + highLighted.substring(tlIndex2.index + 4);*/
                 if (i) {
                     let t1 = ret.indexOf(i);
-                    ret = ret.substring(0, t1 + 1) + '.' + ret.substring(t1 + 2);
+                    ret =
+                        ret.substring(0, t1 + 1) + '.' + ret.substring(t1 + 2);
                 }
                 if (i2) {
                     let t2 = highLighted.indexOf(i2);
                     //highLighted = highLighted.substring(0, t2 + 1) + '.' + highLighted.substring(t2 + 2);
-                    highLighted = highLighted.substring(0, t2) + '<span class="highlight">' + i2.substring(0,1) + '.' + i2.substring(2) + '</span>' + highLighted.substring(t2 + 5);
+                    highLighted =
+                        highLighted.substring(0, t2) +
+                        '<span class="highlight">' +
+                        i2.substring(0, 1) +
+                        '.' +
+                        i2.substring(2) +
+                        '</span>' +
+                        highLighted.substring(t2 + 5);
                 }
             }
         }
         return {
-            'translated': ret,
-            'highlightedTranslated': highLighted
+            translated: ret,
+            highlightedTranslated: highLighted,
         };
     }
 }
 
-module.exports = Translator;
+export default Translator;
